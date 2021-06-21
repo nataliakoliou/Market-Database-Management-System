@@ -1,0 +1,24 @@
+# Endpoint 1-2 | Indicative JSON file...
+{
+    "username":"eloise99",
+    "password":"eloiseM@rtin#4299"
+}
+# Endpoint 3 | Indicative JSON file...
+{
+    "email":"hamptonbarnett@ontagene.com"
+}
+# Endpoint 6 | Indicative JSON file...
+{
+    "email":"jancooper@ontagene.com"
+}
+# Endpoint 7 | Indicative JSON file...
+{
+    "email":"yvettewhitfield@ontagene.com"
+}
+# Endpoint 8-9 | Indicative JSON file...
+{
+    "email":"tonyasweeney@ontagene.com"
+    "courses":[{"course_1": 9, "course_2": 4, "course_3": 7, "course_4": 5, "course_5": 1}]
+}
+
+// Endpoints 4 and 5 need no JSON file to run...
