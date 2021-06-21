@@ -1,24 +1,54 @@
-# Endpoint 1-2 | Indicative JSON file...
+# Endpoint 1 | Indicative JSON file...
 {
-    "username":"eloise99",
-    "password":"eloiseM@rtin#4299"
+    "name":"Eloise Martin",
+    "email":"eloise99@ontagene.com",
+    "password":"eloiseM"
+}
+# Endpoint 2 | Indicative JSON file...
+{
+    "email":"eloise99@ontagene.com",
+    "password":"eloiseM"
 }
 # Endpoint 3 | Indicative JSON file...
 {
-    "email":"hamptonbarnett@ontagene.com"
+    "email":"connerweeks@ontagene.com",
+    "password":"connerW"
 }
-# Endpoint 6 | Indicative JSON file...
+# Endpoint 4 | Indicative JSON file...
 {
-    "email":"jancooper@ontagene.com"
+    "category":"Meat & Seafood"
+}
+# Endpoint 5 | Indicative JSON file...
+{
+    "id":12,
+    "stock":2
 }
 # Endpoint 7 | Indicative JSON file...
 {
-    "email":"yvettewhitfield@ontagene.com"
+    "id":12
 }
-# Endpoint 8-9 | Indicative JSON file...
+# Endpoint 8 | Indicative JSON file...
 {
-    "email":"tonyasweeney@ontagene.com"
-    "courses":[{"course_1": 9, "course_2": 4, "course_3": 7, "course_4": 5, "course_5": 1}]
+    "cardNumber":1940007539405748
+}
+# Endpoint 11 | Indicative JSON file...
+{
+    "id":19,
+    "name":"Organic Bananas",
+    "description":"Enjoy the sweet, tropical taste of Organic Bananas. Bananas are a good source of several vitamins and minerals including potassium, vitamin B6 and vitamin C and are low in sodium.",
+    "price":1.39,
+    "stock":525,
+    "category":"Fruits & Vegetables"
+}
+# Endpoint 12 | Indicative JSON file...
+{
+    "id":4
+}
+# Endpoint 13 | Indicative JSON file...
+{
+    "id":1,
+    "price":5.25,
+    "stock":400
 }
 
-// Endpoints 4 and 5 need no JSON file to run...
+// Endpoints 6 and 9 and 10 need no JSON file to run...
