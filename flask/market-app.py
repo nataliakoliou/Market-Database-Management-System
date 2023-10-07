@@ -42,7 +42,7 @@ def is_user_session_valid(user_uuid):
 def is_admin_session_valid(admin_uuid):
     return admin_uuid in admins_sessions
 
-# ΕΡΩΤΗΜΑ 1: Δημιουργία χρήστη
+# TASK-1: User creation
 @app.route('/createUser', methods=['POST'])
 def create_user():
     # Request JSON data
@@ -66,7 +66,7 @@ def create_user():
     else:   
         return Response("A user with the given email already exists!",status=400,mimetype='application/json')
 
-# ΕΡΩΤΗΜΑ 2: Login στο σύστημα ως standard user
+# TASK-2: Login to the system as a standard user
 @app.route('/userLogin', methods=['POST'])
 def user_login():
     # Request JSON data
@@ -91,7 +91,7 @@ def user_login():
     else:    
         return Response("Wrong email or password! This person is not a standard user.",status=400,mimetype="application/json")
 
-# ΕΡΩΤΗΜΑ 3: Login στο σύστημα ως administrator
+# TASK-3: Log in to the system as an administrator
 @app.route('/adminLogin', methods=['POST'])
 def admin_login():
     # Request JSON data
@@ -116,7 +116,7 @@ def admin_login():
     else:    
         return Response("Wrong email or password! This person is not an administrator.",status=400,mimetype="application/json")
 
-# ΕΡΩΤΗΜΑ 4: Αναζήτηση Προϊόντων 
+# TASK-4: Product search
 @app.route('/searchProduct', methods=['GET'])
 def search_product():
     # Request JSON data
@@ -149,7 +149,7 @@ def search_product():
     else:
         return Response("Invalid user unique identifier!",status=401,mimetype="application/json")
         
-# ΕΡΩΤΗΜΑ 5: Προσθήκη προϊόντος στο καλάθι
+# TASK-5: Add a product to the cart
 @app.route('/addToCart', methods=['GET'])
 def add_to_cart():
     # Request JSON data
@@ -192,7 +192,7 @@ def add_to_cart():
     else:
         return Response("Invalid user unique identifier!",status=401,mimetype="application/json")
 
-# ΕΡΩΤΗΜΑ 6: Εμφάνιση του καλαθιού του πελάτη
+# TASK-6: Display the customer's cart
 @app.route('/displayCart', methods=['GET'])
 def display_cart():
     totalPrice = 0
@@ -207,7 +207,7 @@ def display_cart():
     else:
         return Response("Invalid user unique identifier!",status=401,mimetype="application/json")
 
-# ΕΡΩΤΗΜΑ 7: Διαγραφή προϊόντος από το καλάθι 
+# TASK-7: Delete a product from the cart
 @app.route('/removeFromCart', methods=['GET'])
 def remove_from_cart():
     # Request JSON data
@@ -241,7 +241,7 @@ def remove_from_cart():
     else:
         return Response("Invalid user unique identifier!",status=401,mimetype="application/json")
 
-# ΕΡΩΤΗΜΑ 8: Αγορά προϊόντων
+# TASK-8: Purchase products
 @app.route('/buyProduct', methods=['PATCH'])
 def buy_product():
     # Request JSON data
@@ -283,7 +283,7 @@ def buy_product():
     else:
         return Response("Invalid user unique identifier!",status=401,mimetype="application/json")
 
-# ΕΡΩΤΗΜΑ 9: Εμφάνιση του Ιστορικού Παραγγελιών 
+# TASK-9: Display order history
 @app.route('/showOrderHistory', methods=['GET'])
 def show_order_history():
     uuid = request.headers.get('authorization')
@@ -297,7 +297,7 @@ def show_order_history():
     else:
         return Response("Invalid user unique identifier!",status=401,mimetype="application/json")
 
-# ΕΡΩΤΗΜΑ 10: Διαγραφή λογαριασμού ενός χρήστη
+# TASK-10: Delete a user account
 @app.route('/deleteUser', methods=['DELETE'])
 def delete_user():
     uuid = request.headers.get('authorization')
@@ -308,7 +308,7 @@ def delete_user():
     else:
         return Response("Invalid user unique identifier!",status=401,mimetype="application/json")
 
-# ΕΡΩΤΗΜΑ 11: Εισαγωγή προϊόντος στο DSMarket
+# TASK-11: Add a product to the market
 @app.route('/addToMarket', methods=['PATCH'])
 def add_to_market():
     # Request JSON data
@@ -335,7 +335,7 @@ def add_to_market():
     else:
         return Response("Invalid administrator unique identifier!",status=401,mimetype="application/json")
 
-# ΕΡΩΤΗΜΑ 12: Διαγραφή προϊόντος από το DSMarket
+# TASK-12: Delete a product from the market
 @app.route('/removeFromMarket', methods=['PATCH'])
 def remove_from_market():
     # Request JSON data
@@ -360,7 +360,7 @@ def remove_from_market():
     else:
         return Response("Invalid administrator unique identifier!",status=401,mimetype="application/json")
 
-# ΕΡΩΤΗΜΑ 13: Ενημέρωση προϊόντος του DSMarket
+# TASK-13: Update a product in the market
 @app.route('/updateProduct', methods=['PATCH'])
 def update_product():
     # Request JSON data
@@ -404,6 +404,6 @@ def update_product():
     else:
         return Response("Invalid administrator unique identifier!",status=401,mimetype="application/json")
     
-# Εκτέλεση flask service σε debug mode, στην port 5000. 
+# Execute flask service in debug mode on port 5000 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=5000)
