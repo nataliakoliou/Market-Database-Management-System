@@ -108,9 +108,54 @@ The system checks if the UUID in the Authorization field exists in the `users_se
 7. Click "Send" to retrieve the requested response.
 
 **Code Explanation:**
-The system examines whether the UUID in the Authorization field exists in the users_session by invoking the `is_user_session_valid()` function. If it receives a positive response, it checks if the user's card number is a valid sixteen-digit code. If the card number is valid, the transaction process proceeds successfully. From `users_sessions`, the system identifies the user's email and stores it in the email variable. This data will be needed later to update the `orderHistory` field of the user with the provided email. Initially, the system checks if the cart is empty or has at least one product to purchase. In the first case, the corresponding response message is displayed, while in the second case, the system constructs a for loop to update the Products collection for each product in the cart. Upon completing the update process, the details of each product are added to the receipt list, and simultaneously, we sum up the prices multiplied by the quantity for each product in the `totalPrice` variable. Inside the for loop, there's an if case that handles the update to the `orderHistory` of the Users collection for each product added to the user's receipt. If the product has been previously purchased by the user, the conditions of the if case are not met, and the system never enters it. Finally, the cart is emptied, and the requested transaction receipt is displayed to the user. In case the UUID is invalid, an error message is returned.
+The system examines whether the UUID in the Authorization field exists in the `users_session` by invoking the `is_user_session_valid()` function. If it receives a positive response, it checks if the user's card number is a valid sixteen-digit code. If the card number is valid, the transaction process proceeds successfully. From `users_sessions`, the system identifies the user's email and stores it in the email variable. This data will be needed later to update the `orderHistory` field of the user with the provided email. Initially, the system checks if the cart is empty or has at least one product to purchase. In the first case, the corresponding response message is displayed, while in the second case, the system constructs a for loop to update the Products collection for each product in the cart. Upon completing the update process, the details of each product are added to the receipt list, and simultaneously, we sum up the prices multiplied by the quantity for each product in the `totalPrice` variable. Inside the for loop, there's an if case that handles the update to the `orderHistory` of the Users collection for each product added to the user's receipt. If the product has been previously purchased by the user, the conditions of the if case are not met, and the system never enters it. Finally, the cart is emptied, and the requested transaction receipt is displayed to the user. In case the UUID is invalid, an error message is returned.
 
 ## 9th Endpoint | Order History Display
+1. Open Postman and select the GET request method.
+2. Enter the following URL: http://0.0.0.0:5000/showOrderHistory.
+3. In the Headers section, add a new header named "Authorization," then click on the square box to the left.
+4. After successfully logging in as standard users, copy the UUID and paste it into the Authorization field.
+5. Leave the Body field empty.
+6. Click "Send" to retrieve the requested response.
+
+**Code Explanation:**
+The system checks if the UUID in the Authorization field exists in the `users_session` by calling the `is_user_session_valid()` function. If it receives a positive response, it proceeds to locate the email of the current user (via `users_sessions`) and stores it in the `email` variable. Based on this data, it checks the `orderHistory` field of the user with the corresponding email and verifies if it's empty. If it is indeed empty, the appropriate response message is displayed. If it's not empty, the list of the user's orders stored in this field is displayed. In case the UUID is invalid, an error message is returned.
+
+## 10th Endpoint | User Deletion
+1. Open Postman and select the DELETE request method.
+2. Enter the following URL: http://0.0.0.0:5000/deleteUser.
+3. In the request Body, choose the "raw" option to specify that you are importing a JSON file.
+4. Click on "binary" and then select "Select File" to upload the endpoint1.json file to the system.
+5. Once the file is uploaded, click "Send" to receive the requested response.
+
+**Code Explanation:**
+The system first checks if the UUID in the Authorization field exists in the `users_session` by invoking the `is_user_session_valid()` function. If it receives a positive response, it proceeds to locate the email of the current user (via `users_sessions`) and stores it in the variable `email`. With this data, the system can safely remove the current user from the Users collection. If the deletion is successful, the corresponding response message is returned. In the case of an invalid UUID, an error message is returned.
+
+## 11th Endpoint | Add to Supermarket
+1. Open Postman and select the PATCH request method.
+2. Enter the following URL: http://0.0.0.0:5000/addToMarket.
+3. In the request Body, choose the "raw" option to specify that you are importing a JSON file.
+4. Click "binary" and then select "Select File" to upload the endpoint11.json file to the system.
+5. In the Headers section, add a new header with the name "Authorization" and click on the square box to the left.
+6. After successfully logging in as an administrator user, copy the UUID and paste it into the Authorization field.
+7. Click "Send" to receive the requested response.
+
+**Code Explanation:**
+The system checks if the UUID in the Authorization field exists in the `admins_session` by calling the `is_admin_session_valid()` function. If it receives a positive response, it checks if there is a product in the Products collection with the ID received via Postman. If the requested product already exists in the store's stock, an appropriate response message is printed (adding an existing product to the system is not possible). If the product is not found in the Products collection, it is added through the `product_d` dictionary. Upon successful addition to the system, the corresponding success message is displayed. In case the UUID is invalid, an error message is returned.
+
+## 12th Endpoint | Removing from DSMarke
+1. Open Postman and select the PATCH request method.
+2. Enter the following URL: http://0.0.0.0:5000/removeFromMarket.
+3. In the request Body, choose the "raw" option to specify that you are importing a JSON file.
+4. Select "binary" and click "Select File" to upload the endpoint12.json file to the system.
+5. In the Headers section, add a new header with the name "Authorization" and click on the square box to the left.
+6. After successfully logging in as an administrator user, copy the UUID and paste it into the Authorization field.
+7. Click "Send" to receive the requested response.
+
+**Code Explanation:**
+The system checks if the UUID in the Authorization field exists in the `admins_session` by calling the `is_admin_session_valid()` function. If it receives a positive response, it verifies if there is a product in the Products collection with the ID received via Postman. If the requested product indeed exists in the store's stock, it is completely removed, and a success message is printed. In case the UUID is invalid or the ID does not correspond to an existing product in the Products collection, an error message is returned.
+
+## 13th Endpoint | Order History Display
 1. Open Postman and select the GET request method.
 2. Enter the following URL: http://0.0.0.0:5000/showOrderHistory.
 3. In the Headers section, add a new header named "Authorization," then click on the square box to the left.
