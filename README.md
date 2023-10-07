@@ -25,34 +25,37 @@ To run this project, you need to ensure the following requirements are met:
 1. Open Postman and select the POST request method.
 2. Enter the following URL: [http://0.0.0.0:5000/createUser](http://0.0.0.0:5000/createUser).
 3. In the request Body, choose the "raw" option to specify that you are importing a JSON file.
-4. Select "binary" and click "Select File" to upload the `endpoint1.json` file to the system.
+4. Select "binary" and click "Select File" to upload the endpoint1.json file to the system.
 5. Once the file is uploaded, click "Send" to get the response.
 
 **Code Explanation:**
-The system checks if there are any existing users in the Users collection using the `count_documents()` function. If it returns 0, the username and password entered in the data using `data = json.loads(request.data)` are stored in the user dictionary. This user dictionary is then added to the Users collection, and a success message is sent to the user. If the username and password you're trying to add already exist in the Users collection, you'll receive a corresponding failure message.
+The system checks if there are any existing users in the Users collection using the `count_documents()` function. If it returns 0, the name, email, password, category, and order history provided in the data (via `data = json.loads(request.data)`) are stored in the user dictionary. This user dictionary is then added to the Users collection, and a success message is sent to the user. If the details you're trying to add already exist in the Users collection, you'll receive a corresponding failure message.
 
-## 2nd Endpoint | System login
+## 2nd Endpoint | Standard User Login
 1. Open Postman and select the POST request method.
-2. Enter the following URL: [http://0.0.0.0:5000/createUser](http://0.0.0.0:5000/login).
+2. Enter the following URL: [http://0.0.0.0:5000/userLogin](http://0.0.0.0:5000/userLogin).
 3. In the request Body, choose the "raw" option to specify that you are importing a JSON file.
-4. Select "binary" and click "Select File" to upload the `endpoint2.json` file to the system.
-5. Once the file is uploaded, click "Send" to get the response.
+4. Select "binary" and click "Select File" to upload the endpoint2.json file to the system.
+5. Once the file is successfully loaded, click "Send" to retrieve the desired response.
 
 **Code Explanation:**
-The system checks if there are users in the Users collection with the username and password you provided in the Postman request Body. If it finds a matching user, it triggers the `create_session()` function to authenticate the user. You'll receive a dictionary containing the user's unique identifier (UUID) and username. If the requested user isn't found, you'll get an error message.
+The system verifies the presence of standard users in the Users collection using the email and password provided in the Postman request's Body. If such a user is found, the create_user_session() function is called to authenticate the user. Subsequently, a dictionary is returned to the user containing the user's unique identifier (UUID) and their email address. In the event that the requested user is not found, an appropriate failure message is returned.
 
-## 3rd Endpoint | Get student by email
-
-1. Open Postman and select the GET request method.
-2. Enter the following URL: [http://0.0.0.0:5000/getStudent](http://0.0.0.0:5000/getStudent).
-3. In the request body section, choose the "raw" option to specify that you're sending JSON data.
-4. Select "binary" and click "Select File" to upload the `endpoint3.json` file to the system.
-5. In the Headers section, add a new header named "Authorization."
-6. After successfully logging in as a user, copy the UUID (user unique identifier) and paste it into the Authorization field.
-7. Click the "Send" button to initiate the request and receive the response.
+## 3rd Endpoint | Administrator Login
+1. Open Postman and select the POST request method.
+2. Enter the following URL: [http://0.0.0.0:5000/adminLogin](http://0.0.0.0:5000/adminLogin).
+3. In the request Body, choose the "raw" option to specify that you are importing a JSON file.
+4. Select "binary" and click "Select File" to upload the endpoint3.json file to the system.
+5. Once the file is successfully uploaded, click "Send" to receive the requested response.
 
 **Code Explanation:**
-The system checks if the UUID in the Authorization field exists in the `users_sessions` by calling the `is_session_valid()` function. If it gets a positive response, it proceeds to check if there's a user in the Students collection with the email provided through Postman. If such a user is found, their details are returned through the `student_d1` dictionary. Since the `Students.json` file may contain users who have declared their home address and those who haven't, the `student_d1` dictionary can take two forms: one including the "address" field and one without it. In case the UUID is invalid or the email doesn't correspond to a student, an error message is returned.
+The system checks if there are administrators in the Users collection with the email and password provided in the Postman Body. If such a user is found, the create_admin_session() function is called to authenticate the user. Consequently, a dictionary is returned to the user, containing keys for the user's unique identifier (UUID) and email. In case the requested user is not found, an appropriate failure message is returned.
+
+
+
+
+
+
 
 ## 4th Endpoint | Get all students who are exactly 30 years old
 1. Open Postman and select the GET request method.
