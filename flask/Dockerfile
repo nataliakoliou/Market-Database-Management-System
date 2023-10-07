@@ -6,8 +6,8 @@ RUN pip3 install --upgrade pip
 RUN pip3 install flask pymongo 
 RUN mkdir /app
 RUN mkdir -p /app/data
-COPY app.py /app/app.py
+COPY market-app.py /app/market-app.py
 ADD data /app/data
 EXPOSE 5000
 WORKDIR /app
-ENTRYPOINT ["python3" , "-u" , "app.py"]
+ENTRYPOINT ["python3" , "-u" , "market-app.py"]
