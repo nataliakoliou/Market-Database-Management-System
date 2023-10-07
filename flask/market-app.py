@@ -66,7 +66,7 @@ def create_user():
     else:   
         return Response("A user with the given email already exists!",status=400,mimetype='application/json')
 
-# TASK-2: Login to the system as a standard user
+# TASK-2: Standard user login
 @app.route('/userLogin', methods=['POST'])
 def user_login():
     # Request JSON data
@@ -91,7 +91,7 @@ def user_login():
     else:    
         return Response("Wrong email or password! This person is not a standard user.",status=400,mimetype="application/json")
 
-# TASK-3: Log in to the system as an administrator
+# TASK-3: Administrator login
 @app.route('/adminLogin', methods=['POST'])
 def admin_login():
     # Request JSON data
@@ -107,7 +107,7 @@ def admin_login():
     if (not "email" in data) or (not "password" in data):
         return Response("Information incomplete...",status=500,mimetype="application/json")
 
-    # if authentication is successful...
+    # if authentication is successful
     if users.count_documents({"$and":[{"email":data["email"]}, {"password":data["password"]}, {"category":"administrator"}]}) == 1 :
         admin_uuid = create_admin_session(data["email"])
         res = {"uuid": admin_uuid, "email": data["email"]}
@@ -149,7 +149,7 @@ def search_product():
     else:
         return Response("Invalid user unique identifier!",status=401,mimetype="application/json")
         
-# TASK-5: Add a product to the cart
+# TASK-5: Add product to the cart
 @app.route('/addToCart', methods=['GET'])
 def add_to_cart():
     # Request JSON data
@@ -192,7 +192,7 @@ def add_to_cart():
     else:
         return Response("Invalid user unique identifier!",status=401,mimetype="application/json")
 
-# TASK-6: Display the customer's cart
+# TASK-6: Display customer's cart
 @app.route('/displayCart', methods=['GET'])
 def display_cart():
     totalPrice = 0
@@ -207,7 +207,7 @@ def display_cart():
     else:
         return Response("Invalid user unique identifier!",status=401,mimetype="application/json")
 
-# TASK-7: Delete a product from the cart
+# TASK-7: Delete product from the cart
 @app.route('/removeFromCart', methods=['GET'])
 def remove_from_cart():
     # Request JSON data
@@ -297,7 +297,7 @@ def show_order_history():
     else:
         return Response("Invalid user unique identifier!",status=401,mimetype="application/json")
 
-# TASK-10: Delete a user account
+# TASK-10: Delete user account
 @app.route('/deleteUser', methods=['DELETE'])
 def delete_user():
     uuid = request.headers.get('authorization')
@@ -308,7 +308,7 @@ def delete_user():
     else:
         return Response("Invalid user unique identifier!",status=401,mimetype="application/json")
 
-# TASK-11: Add a product to the market
+# TASK-11: Add product to the market
 @app.route('/addToMarket', methods=['PATCH'])
 def add_to_market():
     # Request JSON data
@@ -335,7 +335,7 @@ def add_to_market():
     else:
         return Response("Invalid administrator unique identifier!",status=401,mimetype="application/json")
 
-# TASK-12: Delete a product from the market
+# TASK-12: Delete product from the market
 @app.route('/removeFromMarket', methods=['PATCH'])
 def remove_from_market():
     # Request JSON data
@@ -360,7 +360,7 @@ def remove_from_market():
     else:
         return Response("Invalid administrator unique identifier!",status=401,mimetype="application/json")
 
-# TASK-13: Update a product in the market
+# TASK-13: Update product in the market
 @app.route('/updateProduct', methods=['PATCH'])
 def update_product():
     # Request JSON data
