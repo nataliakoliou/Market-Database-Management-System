@@ -1,58 +1,128 @@
-# Τεχνική Αναφορά | Περιγραφή Εκτέλεσης Κώδικα
-Τμήμα Ψηφιακών Συστημάτων | Πληροφοριακά Συστήματα : Ναταλία Κολιού, Ε18073
-> # Εισαγωγή
-> Στην τρέχουσα τεχνική αναφορά, θα περιγράψουμε αναλυτικά τα στάδιο εκτέλεσης του αρχείου app.py. Για τον σκοπό αυτό, θα χρησιμοποιήσουμε τον τερματικό του Linux και την εφαρμογή Postman. Με την εκκίνηση της εικονικής μας μηχανής, θα εκτελέσουμε στον terminal τις ακόλουθες δύο εντολές για να ενεργοποιήσουμε το docker και την βάση mongodb: sudo systemctl enable docker --now και sudo docker start mongodb. Στη συνέχεια, θα γράψουμε την εντολή python3 app.py για να ενεργοποιήσουμε τον debugger και να εκτελέσουμε το python αρχείο μας στον http://0.0.0.0:5000/. Προτείνεται η κατασκευή και των 13 JSON αρχείων που θα εισάγετε στο Postman προς δική σας διευκόλυνση ...
+# Market Database Management System
+This project focuses on creating a Supermarket Database Management System, designed to offer a range of endpoints for efficiently managing market-related data. The system is implemented using Python with Flask for the backend and MongoDB as the database. 
 
-> ... ανατρέξτε στο αρχείο Indicative_JSON_files.txt της εργασίας στο GitHub.
-> # Υλοποίηση του 1ου Endpoint | Δημιουργία Χρήστη
-> Στο πεδίο HTTP Request του Postman, επιλέγουμε την POST request μέθοδο και στο πεδίο Request URL βάζουμε την διεύθυνση: http://0.0.0.0:5000/createUser. Στο κυρίως μέρος (Body) επιλέγουμε το πεδίο raw για να δηλώσουμε ότι ο τύπος αρχείου που θα εισάγουμε θα είναι JSON. Έπειτα πατάμε binary και στη συνέχεια Select File. Εκεί καλούμαστε να εισάγουμε το endpoint1.json αρχείο μας στο σύστημα. Όταν φορτωθεί επιτυχώς, πατάμε Send για να μας εκτυπωθεί η ζητούμενη απάντηση.
+## Introduction
+In this report, we will provide a detailed walkthrough of the steps involved in running the `market-app.py` file. To accomplish this, we will use the Linux terminal and the Postman application.
 
-> Ερμηνεία του Κώδικα: Το σύστημα ελέγχει αν υπάρχουν ήδη χρήστες στην συλλογή των Users αξιοποιώντας την συνάρτηση count_documents(). Αν αυτή επιστρέψει 0, τότε αποθηκεύεται στο λεξικό user το name, το email, το password, το category και το orderHistory, που εισάγονται στο data μέσω της εντολής data = json.loads(request.data). Το λεξικό αυτό user μπαίνει στην συλλογή Users και εν τέλει αποστέλλεται μήνυμα επιτυχίας στον χρήστη. Ειδάλλως αν τα στοιχεία που θέλουμε να εισάγουμε, υπάρχουν ήδη στην συλλογή Users, επιστρέφεται το ανάλογο μήνυμα αποτυχίας.
-> # Υλοποίηση του 2ου Endpoint | Login ως Standard User
-> Στο πεδίο HTTP Request του Postman, επιλέγουμε την POST request μέθοδο και στο πεδίο Request URL βάζουμε την διεύθυνση: http://0.0.0.0:5000/userLogin. Στο κυρίως μέρος (Body) επιλέγουμε το πεδίο raw για να δηλώσουμε ότι ο τύπος αρχείου που θα εισάγουμε θα είναι JSON. Έπειτα πατάμε binary και στη συνέχεια Select File. Εκεί καλούμαστε να εισάγουμε το endpoint2.json αρχείο μας στο σύστημα. Όταν φορτωθεί επιτυχώς, πατάμε Send για να μας εκτυπωθεί η ζητούμενη απάντηση.
+We will execute the Python file, students-app.py, along with a debugger, accessible at http://0.0.0.0:5000/. For your convenience, we recommend creating thirteen JSON files that can be imported into Postman. You can find a list of these JSON files in the [json-endpoints.txt](https://github.com/nataliakoliou/Market-Database-Management-System/blob/main/json-endpoints.txt) file in this repository. Copy and paste the endpoints from the file to quickly set up your requests in Postman.
 
-> Ερμηνεία του Κώδικα: Το σύστημα ελέγχει αν υπάρχουν standard users στην συλλογή των Users με το email και password που εισάγουμε στο Body του Postman. Αν βρεθεί ένας τέτοιος χρήστης τότε καλείται η συνάρτηση create_user_session() προκειμένου να αυθεντικοποιηθεί ο χρήστης. Έτσι επιστρέφεται στον χρήστη ένα λεξικό με keys το user unique identifier (uuid) και το email του χρήστη. Σε περίπτωση που δεν βρεθεί ο ζητούμενος χρήστης επιστρέφεται το ανάλογο μήνυμα αποτυχίας.
-> # Υλοποίηση του 3ου Endpoint | Login ως Administrator
-> Στο πεδίο HTTP Request του Postman, επιλέγουμε την POST request μέθοδο και στο πεδίο Request URL βάζουμε την διεύθυνση: http://0.0.0.0:5000/adminLogin. Στο κυρίως μέρος (Body) επιλέγουμε το πεδίο raw για να δηλώσουμε ότι ο τύπος αρχείου που θα εισάγουμε θα είναι JSON. Έπειτα πατάμε binary και στη συνέχεια Select File. Εκεί καλούμαστε να εισάγουμε το endpoint3.json αρχείο μας στο σύστημα. Όταν φορτωθεί επιτυχώς, πατάμε Send για να μας εκτυπωθεί η ζητούμενη απάντηση.
+## Requirements
+To run this project, you need to ensure the following requirements are met:
+- **Python:** The project is implemented using Python. You will need Python 3.8 or a higher version installed on your system. You can download Python from [Python's official website](https://www.python.org/downloads/).
+- **Flask:** Flask is used as the web framework for the backend of the project. You can install Flask using pip:
+  ```bash
+  pip install Flask
+  ```
+- MongoDB: MongoDB is used as the database for the project. You can install MongoDB on your system by following the instructions provided on the MongoDB installation page.
+- Docker (Optional): Docker is used to run MongoDB as a container. If you prefer to use Docker, make sure it's installed on your system, and you can start MongoDB as a Docker container using:
+  ```bash
+  sudo systemctl enable docker --now
+  sudo docker start mongodb
+  ```
+- Postman: Postman is recommended for testing the API endpoints. You can download and install Postman from Postman's official website.
 
-> Ερμηνεία του Κώδικα: Το σύστημα ελέγχει αν υπάρχουν administrators στην συλλογή των Users με το email και password που εισάγουμε στο Body του Postman. Αν βρεθεί ένας τέτοιος χρήστης τότε καλείται η συνάρτηση create_admin_session() προκειμένου να αυθεντικοποιηθεί ο χρήστης. Έτσι επιστρέφεται στον χρήστη ένα λεξικό με keys το user unique identifier (uuid) και το email του χρήστη. Σε περίπτωση που δεν βρεθεί ο ζητούμενος χρήστης επιστρέφεται το ανάλογο μήνυμα αποτυχίας.
-> # Υλοποίηση του 4ου Endpoint | Αναζήτηση Προϊόντων
-> Στο πεδίο HTTP Request του Postman, επιλέγουμε την GET request μέθοδο και στο πεδίο Request URL βάζουμε την διεύθυνση: http://0.0.0.0:5000/searchProduct. Στο κυρίως μέρος (Body) επιλέγουμε το πεδίο raw για να δηλώσουμε ότι ο τύπος αρχείου που θα εισάγουμε θα είναι JSON. Έπειτα πατάμε binary και στη συνέχεια Select File. Εκεί καλούμαστε να εισάγουμε το endpoint4.json αρχείο μας στο σύστημα. Έπειτα πηγαίνουμε στο πεδίο Headers και εισάγουμε έναν νέο header με το όνομα Authorization και κάνουμε κλικ στο τετράγωνο πλαίσιο στα αριστερά. Έχοντας κάνει επιτυχώς το login ως standard χρήστες, λαμβάνουμε (copy) το αναγνωριστικό uuid και το βάζουμε στο πλαίσιο του Authorization. Τώρα είμαστε έτοιμοι να πατήσουμε Send για να μας εκτυπωθεί η ζητούμενη απάντηση.
+## 1st Endpoint | User creation
+1. Open Postman and select the POST request method.
+2. Enter the following URL: [http://0.0.0.0:5000/createUser](http://0.0.0.0:5000/createUser).
+3. In the request Body, choose the "raw" option to specify that you are importing a JSON file.
+4. Select "binary" and click "Select File" to upload the `endpoint1.json` file to the system.
+5. Once the file is uploaded, click "Send" to get the response.
 
-> Ερμηνεία του Κώδικα: Το σύστημα εξετάζει αν το uuid στο πεδίο Authorization υπάρχει στην users_session, καλώντας την συνάρτηση is_user_session_valid(). Αν λάβει θετική απάντηση, ελέγχει αν υπάρχει κάποιο product στην συλλογή Products με το id, ή το name ή το category που έλαβε μέσω Postman (το endpoint4.json μπορεί να περιέχει είτε το id, είτε το name είτε το category με βάση το οποίο θα αναζητήσουμε ένα προϊόν). Αν πράγματι βρεθεί ένα ή και περισσότερα τέτοια products, τότε επιστρέφονται τα στοιχεία τους μέσω μιας λίστας λεξικών: products_l | περιέχει τα λεξικά product_d. Σε περίπτωση που το uuid είναι μη έγκυρο, ή το id/name/category δεν αντιστοιχεί σε κάποιο προϊόν, επιστρέφεται μήνυμα λάθους.
-> # Υλοποίηση του 5ου Endpoint | Προσθήκη στο Καλάθι
-> Στο πεδίο HTTP Request του Postman, επιλέγουμε την GET request μέθοδο και στο πεδίο Request URL βάζουμε την διεύθυνση: http://0.0.0.0:5000/addToCart. Στο κυρίως μέρος (Body) επιλέγουμε το πεδίο raw για να δηλώσουμε ότι ο τύπος αρχείου που θα εισάγουμε θα είναι JSON. Έπειτα πατάμε binary και στη συνέχεια Select File. Εκεί καλούμαστε να εισάγουμε το endpoint5.json αρχείο μας στο σύστημα. Έπειτα πηγαίνουμε στο πεδίο Headers και εισάγουμε έναν νέο header με το όνομα Authorization και κάνουμε κλικ στο τετράγωνο πλαίσιο στα αριστερά. Έχοντας κάνει επιτυχώς το login ως standard χρήστες, λαμβάνουμε (copy) το αναγνωριστικό uuid και το βάζουμε στο πλαίσιο του Authorization. Τώρα είμαστε έτοιμοι να πατήσουμε Send για να μας εκτυπωθεί η ζητούμενη απάντηση.
+**Code Explanation:**
+The system checks if there are any existing users in the Users collection using the `count_documents()` function. If it returns 0, the username and password entered in the data using `data = json.loads(request.data)` are stored in the user dictionary. This user dictionary is then added to the Users collection, and a success message is sent to the user. If the username and password you're trying to add already exist in the Users collection, you'll receive a corresponding failure message.
 
-> Ερμηνεία του Κώδικα: Το σύστημα εξετάζει αν το uuid στο πεδίο Authorization υπάρχει στην users_session, καλώντας την συνάρτηση is_user_session_valid(). Αν λάβει θετική απάντηση, ελέγχει αν υπάρχει κάποιο product στην συλλογή Products με το id που έλαβε μέσω Postman. Συγχρόνως απαιτεί αυτό το product να βρίσκεται στο stock σε ποσότητες μεγαλύτερες ή ίσες με το quantity που δηλώνει ο χρήστης στο endpoint5.json. Αν πράγματι το ζητούμενο product είναι διαθέσιμο, τότε τοποθετείται στην λίστα cart μέσω του λεξικού product_d. Για να υπολογίσουμε το συνολικό χρηματικό ποσό των προϊόντων του cart, θα λάβουμε τις εξής δύο περιπτώσεις: το cart να είναι άδειο και το cart να έχει τουλάχιστον ένα product μέσα. Στην πρώτη περίπτωση ελέγχουμε αν το επιθυμητό προϊόν βρίσκεται ήδη στο καλάθι, για να μην το προσθέσουμε ξανά σε αυτό, αλλά να αλλάξουμε απλώς το πεδίο quantity με βάση την νέα παραγγελία. Στην δεύτερη περίπτωση, απλά προσθέτουμε το προϊόν στο καλάθι δίχως περεταίρω ενέργειες. Τέλος, υπολογίζουμε το συνολικό κόστος totalPrice λαμβάνοντας το γινόμενο του κάθε product του cart με την αντίστοιχη quantity στην οποία το συναντάμε σε αυτό. Εμφανίζουμε τα στοιχεία του καλαθιού στον χρήστη και τερματίζουμε το endpoint. Και φυσικά, σε περίπτωση που το uuid είναι μη έγκυρο, ή το id/quantity δεν αντιστοιχεί σε κάποιο διαθέσιμο προϊόν, επιστρέφεται μήνυμα λάθους.
-> # Υλοποίηση του 6ου Endpoint | Εμφάνιση του Καλαθιού
-> Στο πεδίο HTTP Request του Postman, επιλέγουμε την GET request μέθοδο και στο πεδίο Request URL βάζουμε την διεύθυνση: http://0.0.0.0:5000/displayCart. Έπειτα πηγαίνουμε στο πεδίο Headers και εισάγουμε έναν νέο header με το όνομα Authorization και κάνουμε κλικ στο τετράγωνο πλαίσιο στα αριστερά. Έχοντας κάνει επιτυχώς το login ως standard χρήστες, λαμβάνουμε (copy) το αναγνωριστικό uuid και το βάζουμε στο πλαίσιο του Authorization. Προσοχή: δεν εισάγουμε τίποτα στο πεδίο Body. Τώρα είμαστε έτοιμοι να πατήσουμε Send για να μας εκτυπωθεί η ζητούμενη απάντηση.
+## 2nd Endpoint | System login
+1. Open Postman and select the POST request method.
+2. Enter the following URL: [http://0.0.0.0:5000/createUser](http://0.0.0.0:5000/login).
+3. In the request Body, choose the "raw" option to specify that you are importing a JSON file.
+4. Select "binary" and click "Select File" to upload the `endpoint2.json` file to the system.
+5. Once the file is uploaded, click "Send" to get the response.
 
-> Ερμηνεία του Κώδικα: Το σύστημα εξετάζει αν το uuid στο πεδίο Authorization υπάρχει στην users_session, καλώντας την συνάρτηση is_user_session_valid(). Αν λάβει θετική απάντηση, ελέγχει αν το cart είναι γεμάτο ή άδειο. Σε περίπτωση που είναι άδειο εμφανίζεται το αντίστοιχο μήνυμα απάντησης. Αν πάλι υπάρχουν προϊόντα στο καλάθι, τότε υπολογίζεται κατά τα γνωστά το totalPrice και εμφανίζονται τα στοιχεία του καλαθιού (στοιχεία προϊόντων και συνολικό κόστος). Σε περίπτωση που το uuid είναι μη έγκυρο, επιστρέφεται μήνυμα λάθους.
-> # Υλοποίηση του 7ου Endpoint | Διαγραφή από το Καλάθι
-> Στο πεδίο HTTP Request του Postman, επιλέγουμε την GET request μέθοδο και στο πεδίο Request URL βάζουμε την διεύθυνση: http://0.0.0.0:5000/removeFromCart. Στο κυρίως μέρος (Body) επιλέγουμε το πεδίο raw για να δηλώσουμε ότι ο τύπος αρχείου που θα εισάγουμε θα είναι JSON. Έπειτα πατάμε binary και στη συνέχεια Select File. Εκεί καλούμαστε να εισάγουμε το endpoint7.json αρχείο μας στο σύστημα. Έπειτα πηγαίνουμε στο πεδίο Headers και εισάγουμε έναν νέο header με το όνομα Authorization και κάνουμε κλικ στο τετράγωνο πλαίσιο στα αριστερά. Έχοντας κάνει επιτυχώς το login ως standard χρήστες, λαμβάνουμε (copy) το αναγνωριστικό uuid και το βάζουμε στο πλαίσιο του Authorization. Τώρα είμαστε έτοιμοι να πατήσουμε Send για να μας εκτυπωθεί η ζητούμενη απάντηση.
+**Code Explanation:**
+The system checks if there are users in the Users collection with the username and password you provided in the Postman request Body. If it finds a matching user, it triggers the `create_session()` function to authenticate the user. You'll receive a dictionary containing the user's unique identifier (UUID) and username. If the requested user isn't found, you'll get an error message.
 
-> Ερμηνεία του Κώδικα: Το σύστημα εξετάζει αν το uuid στο πεδίο Authorization υπάρχει στην users_session, καλώντας την συνάρτηση is_user_session_valid(). Αν λάβει θετική απάντηση, ελέγχει αν υπάρχει κάποιο product στην συλλογή Products με το id που έλαβε μέσω Postman. Αν πράγματι εντοπιστεί το ζητούμενο product, τότε αφαιρείται από την λίστα cart, λαμβάνοντας υπ' όψιν το προσωπικό του id (σύμφωνα με αυτό αναζητείται το προϊόν στο cart). Υπολογίζουμε στην συνέχεια, το συνολικό χρηματικό ποσό των προϊόντων του cart που απομένουν και αποθηκεύουμε το αποτέλεσμα στην μεταβλητή totalPrice. Εμφανίζουμε τα ανανεωμένα στοιχεία του καλαθιού στον χρήστη και τερματίζουμε το endpoint. Σε περίπτωση που το uuid είναι μη έγκυρο, ή το id δεν αντιστοιχεί σε κάποιο προϊόν, επιστρέφεται μήνυμα λάθους.
-> # Υλοποίηση του 8ου Endpoint | Αγορά Προϊόντων
-> Στο πεδίο HTTP Request του Postman, επιλέγουμε την PATCH request μέθοδο και στο πεδίο Request URL βάζουμε την διεύθυνση: http://0.0.0.0:5000/buyProduct. Στο κυρίως μέρος (Body) επιλέγουμε το πεδίο raw για να δηλώσουμε ότι ο τύπος αρχείου που θα εισάγουμε θα είναι JSON. Έπειτα πατάμε binary και στη συνέχεια Select File. Εκεί καλούμαστε να εισάγουμε το endpoint8.json αρχείο μας στο σύστημα. Έπειτα πηγαίνουμε στο πεδίο Headers και εισάγουμε έναν νέο header με το όνομα Authorization και κάνουμε κλικ στο τετράγωνο πλαίσιο στα αριστερά. Έχοντας κάνει επιτυχώς το login ως standard χρήστες, λαμβάνουμε (copy) το αναγνωριστικό uuid και το βάζουμε στο πλαίσιο του Authorization. Τώρα είμαστε έτοιμοι να πατήσουμε Send για να μας εκτυπωθεί η ζητούμενη απάντηση.
+## 3rd Endpoint | Get student by email
 
-> Ερμηνεία του Κώδικα: Το σύστημα εξετάζει αν το uuid στο πεδίο Authorization υπάρχει στην users_session, καλώντας την συνάρτηση is_user_session_valid(). Αν λάβει θετική απάντηση, ελέγχει αν το cardNumber του χρήστη είναι ένας δεκαεξαψήφιος κωδικός. Αν λοιπόν ο αριθμός της κάρτας του είναι έγκυρος, προχωράμε επιτυχώς στην διαδικασία της συναλλαγής. Από το users_sessions εντοπίζουμε το email του χρήστη και το αποθηκεύουμε στην μεταβλητή email. Το δεδομένο αυτό θα το χρειαστούμε στην συνέχεια για να κάνουμε update στο πεδίο orderHistory του χρήστη με το δεδομένο email. Αρχικά ελέγχουμε αν το cart είναι άδειο, ή αν έχει τουλάχιστον ένα προϊόν προς αγορά. Στην πρώτη περίπτωση εμφανίζεται το αντίστοιχο μήνυμα απάντησης, ενώ στην δεύτερη το σύστημα κατασκευάζει ένα for loop για να κάνει update στην συλλογή Products για το κάθε ένα product στο cart. Όταν ολοκληρωθεί η διαδικασία του update, τα στοιχεία του κάθε product εισάγονται στην λίστα receipt και συγχρόνως συναθροίζουμε ένα ένα τα prices x quantity μέσα στην μεταβλητή totalPrice. Μέσα στην for υπάρχει το if case που αναλαμβάνει το pdate στο orderHistory της συλλογής Users για το κάθε προϊόν που προστίθεται στην απόδειξη του χρήστη. Αν το προϊόν αυτό έχει προηγουμένως αγοραστεί από αυτόν, δεν ικανοποιούνται οι προϋποθέσεις της if case και άρα το σύστημα δεν μπαίνει ποτέ σε αυτήν. Το καλάθι εν τέλει αδειάζει και η ζητούμενη απόδειξη της συναλλαγής εμφανίζεται στον χρήστη. Και φυσικά, σε περίπτωση που το uuid είναι μη έγκυρο, επιστρέφεται μήνυμα λάθους.
-> # Υλοποίηση του 9ου Endpoint | Εμφάνιση Ιστορικού Παραγγελιών
-> Στο πεδίο HTTP Request του Postman, επιλέγουμε την GET request μέθοδο και στο πεδίο Request URL βάζουμε την διεύθυνση: http://0.0.0.0:5000/showOrderHistory. Έπειτα πηγαίνουμε στο πεδίο Headers και εισάγουμε έναν νέο header με το όνομα Authorization και κάνουμε κλικ στο τετράγωνο πλαίσιο στα αριστερά. Έχοντας κάνει επιτυχώς το login ως standard χρήστες, λαμβάνουμε (copy) το αναγνωριστικό uuid και το βάζουμε στο πλαίσιο του Authorization. Προσοχή: δεν εισάγουμε τίποτα στο πεδίο Body. Τώρα είμαστε έτοιμοι να πατήσουμε Send για να μας εκτυπωθεί η ζητούμενη απάντηση.
+1. Open Postman and select the GET request method.
+2. Enter the following URL: [http://0.0.0.0:5000/getStudent](http://0.0.0.0:5000/getStudent).
+3. In the request body section, choose the "raw" option to specify that you're sending JSON data.
+4. Select "binary" and click "Select File" to upload the `endpoint3.json` file to the system.
+5. In the Headers section, add a new header named "Authorization."
+6. After successfully logging in as a user, copy the UUID (user unique identifier) and paste it into the Authorization field.
+7. Click the "Send" button to initiate the request and receive the response.
 
-> Ερμηνεία του Κώδικα: Το σύστημα εξετάζει αν το uuid στο πεδίο Authorization υπάρχει στην users_session, καλώντας την συνάρτηση is_user_session_valid(). Αν λάβει θετική απάντηση, προχωράει στον εντοπισμό του email του τρέχοντος χρήστη (μέσω του users_sessions). Όταν το βρούμε, το αποθηκεύουμε κανονικά στην μεταβλητή email. Σύμφωνα με αυτό το δεδομένο, ανατρέχουμε στο πεδίο orderHistory του user με το παραπάνω email και ελέγχουμε αν αυτό είναι άδειο. Αν πράγματι είναι άδειο, τότε εμφανίζεται το ανάλογο μήνυμα απάντησης. Αν πάλι είναι γεμάτο, εμφανίζεται η λίστα των παραγγελιών του χρήστη που είναι αποθηκευμένη σε αυτό το πεδίο. Σε περίπτωση που το uuid είναι μη έγκυρο, επιστρέφεται μήνυμα λάθους.
-> # Υλοποίηση του 10ου Endpoint | Διαγραφή Χρήστη
-> Στο πεδίο HTTP Request του Postman, επιλέγουμε την DELETE request μέθοδο και στο πεδίο Request URL βάζουμε την διεύθυνση: http://0.0.0.0:5000/deleteUser. Στο κυρίως μέρος (Body) επιλέγουμε το πεδίο raw για να δηλώσουμε ότι ο τύπος αρχείου που θα εισάγουμε θα είναι JSON. Έπειτα πατάμε binary και στη συνέχεια Select File. Εκεί καλούμαστε να εισάγουμε το endpoint1.json αρχείο μας στο σύστημα. Όταν φορτωθεί επιτυχώς, πατάμε Send για να μας εκτυπωθεί η ζητούμενη απάντηση.
+**Code Explanation:**
+The system checks if the UUID in the Authorization field exists in the `users_sessions` by calling the `is_session_valid()` function. If it gets a positive response, it proceeds to check if there's a user in the Students collection with the email provided through Postman. If such a user is found, their details are returned through the `student_d1` dictionary. Since the `Students.json` file may contain users who have declared their home address and those who haven't, the `student_d1` dictionary can take two forms: one including the "address" field and one without it. In case the UUID is invalid or the email doesn't correspond to a student, an error message is returned.
 
-> Ερμηνεία του Κώδικα: Το σύστημα εξετάζει αν το uuid στο πεδίο Authorization υπάρχει στην users_session, καλώντας την συνάρτηση is_user_session_valid(). Αν λάβει θετική απάντηση, προχωράει στον εντοπισμό του email του τρέχοντος χρήστη (μέσω του users_sessions). Όταν το βρούμε, το αποθηκεύουμε κανονικά στην μεταβλητή email. Σύμφωνα με αυτό το δεδομένο, μπορούμε να διαγράψουμε τον τρέχοντα χρήστη από την συλλογή Users. Αν η διαγραφή εκτελεστεί επιτυχώς επιστρέφεται το ανάλογο μήνυμα απάντησης. Σε περίπτωση που το uuid είναι μη έγκυρο, επιστρέφεται μήνυμα λάθους.
-> # Υλοποίηση του 11ου Endpoint | Προσθήκη στο DSMarket
-> Στο πεδίο HTTP Request του Postman, επιλέγουμε την PATCH request μέθοδο και στο πεδίο Request URL βάζουμε την διεύθυνση: http://0.0.0.0:5000/addToMarket. Στο κυρίως μέρος (Body) επιλέγουμε το πεδίο raw για να δηλώσουμε ότι ο τύπος αρχείου που θα εισάγουμε θα είναι JSON. Έπειτα πατάμε binary και στη συνέχεια Select File. Εκεί καλούμαστε να εισάγουμε το endpoint11.json αρχείο μας στο σύστημα. Έπειτα πηγαίνουμε στο πεδίο Headers και εισάγουμε έναν νέο header με το όνομα Authorization και κάνουμε κλικ στο τετράγωνο πλαίσιο στα αριστερά. Έχοντας κάνει επιτυχώς το login ως administrator χρήστες, λαμβάνουμε (copy) το αναγνωριστικό uuid και το βάζουμε στο πλαίσιο του Authorization. Τώρα είμαστε έτοιμοι να πατήσουμε Send για να μας εκτυπωθεί η ζητούμενη απάντηση.
+## 4th Endpoint | Get all students who are exactly 30 years old
+1. Open Postman and select the GET request method.
+2. 2. Enter the following URL: [http://0.0.0.0:5000/getStudents/thirties](http://0.0.0.0:5000/getStudents/thirties).
+5. In the Headers section, add a new header named "Authorization."
+6. After successfully logging in as a user, copy the UUID (user unique identifier) and paste it into the Authorization field.
+4. Leave the Body field empty.
+7. Click the "Send" button to initiate the request and receive the response.
 
-> Ερμηνεία του Κώδικα: Το σύστημα εξετάζει αν το uuid στο πεδίο Authorization υπάρχει στην admins_session, καλώντας την συνάρτηση is_admin_session_valid(). Αν λάβει θετική απάντηση, ελέγχει αν υπάρχει κάποιο product στην συλλογή Products με το id που έλαβε μέσω Postman. Αν πράγματι το ζητούμενο product υπάρχει ήδη στο stock του καταστήματος, τότε εκτυπώνεται το ανάλογο μήνυμα απάντησης (είναι αδύνατη η εισαγωγή ήδη υπάρχοντος προϊόντος στο σύστημα). Αν πάλι δεν εντοπιστέι στην συλλογή Products, τότε προστίθεται σε αυτή μέσω του λεξικού product_d. Κατά την επιτυχή εισαγωγή στο σύστημα εμφανίζεται το αντίστοιχο μήνυμα επιτυχίας. Σε περίπτωση που το uuid είναι μη έγκυρο, επιστρέφεται μήνυμα λάθους.
-> # Υλοποίηση του 12ου Endpoint | Διαγραφή από το DSMarket
-> Στο πεδίο HTTP Request του Postman, επιλέγουμε την PATCH request μέθοδο και στο πεδίο Request URL βάζουμε την διεύθυνση: http://0.0.0.0:5000/removeFromMarket. Στο κυρίως μέρος (Body) επιλέγουμε το πεδίο raw για να δηλώσουμε ότι ο τύπος αρχείου που θα εισάγουμε θα είναι JSON. Έπειτα πατάμε binary και στη συνέχεια Select File. Εκεί καλούμαστε να εισάγουμε το endpoint12.json αρχείο μας στο σύστημα. Έπειτα πηγαίνουμε στο πεδίο Headers και εισάγουμε έναν νέο header με το όνομα Authorization και κάνουμε κλικ στο τετράγωνο πλαίσιο στα αριστερά. Έχοντας κάνει επιτυχώς το login ως administrator χρήστες, λαμβάνουμε (copy) το αναγνωριστικό uuid και το βάζουμε στο πλαίσιο του Authorization. Τώρα είμαστε έτοιμοι να πατήσουμε Send για να μας εκτυπωθεί η ζητούμενη απάντηση.
+**Code Explanation:**
+The system checks if your UUID in the Authorization field is valid by calling the `is_session_valid()` function. If it's valid, it looks for students aged 30 in the current year. It calculates their birth year (e.g., 1991 for 2021) and stores it as `yearMinus30`. Then, it checks the Students collection for students in this age group. If any are found, their details are printed using the `student_l1` list. To create this list, it goes through each 30-year-old student, stores their information in a dictionary called `student_d2`, and adds it to the `students_l1` list. It's important to note that because the `Students.json` file may have users with or without address information, the `student_d2` dictionary can have two forms – one with the address field and one without. If the UUID is invalid or the email doesn't belong to a 30-year-old student, it returns an error message.
 
-> Ερμηνεία του Κώδικα: Το σύστημα εξετάζει αν το uuid στο πεδίο Authorization υπάρχει στην admins_session, καλώντας την συνάρτηση is_admin_session_valid(). Αν λάβει θετική απάντηση, ελέγχει αν υπάρχει κάποιο product στην συλλογή Products με το id που έλαβε μέσω Postman. Αν πράγματι το ζητούμενο product υπάρχει στο stock του καταστήματος, τότε αφαιρείται εντελώς από αυτό και εκτυπώνεται το αντίστοιχο μήνυμα επιτυχίας. Σε περίπτωση που το uuid είναι μη έγκυρο ή το id δεν αντιστοιχεί σε κάποιο υπάρχον προϊόν στην συλλογή Products, επιστρέφεται μήνυμα λάθους.
-> # Υλοποίηση του 13ου Endpoint | Ενημέρωση στο DSMarket
-> Στο πεδίο HTTP Request του Postman, επιλέγουμε την PATCH request μέθοδο και στο πεδίο Request URL βάζουμε την διεύθυνση: http://0.0.0.0:5000/updateProduct. Στο κυρίως μέρος (Body) επιλέγουμε το πεδίο raw για να δηλώσουμε ότι ο τύπος αρχείου που θα εισάγουμε θα είναι JSON. Έπειτα πατάμε binary και στη συνέχεια Select File. Εκεί καλούμαστε να εισάγουμε το endpoint13.json αρχείο μας στο σύστημα. Έπειτα πηγαίνουμε στο πεδίο Headers και εισάγουμε έναν νέο header με το όνομα Authorization και κάνουμε κλικ στο τετράγωνο πλαίσιο στα αριστερά. Έχοντας κάνει επιτυχώς το login ως administrator χρήστες, λαμβάνουμε (copy) το αναγνωριστικό uuid και το βάζουμε στο πλαίσιο του Authorization. Τώρα είμαστε έτοιμοι να πατήσουμε Send για να μας εκτυπωθεί η ζητούμενη απάντηση.
+## 5th Endpoint | Get all students who are at least 30 years old
+1. Open Postman and select the GET request method.
+2. Enter the following URL: [http://0.0.0.0:5000/getStudents/oldies](http://0.0.0.0:5000/getStudents/oldies).
+3. In the Headers section, add a new header named "Authorization."
+4. After successfully logging in as a user, copy your UUID (user unique identifier) and paste it into the Authorization field.
+5. Leave the Body field empty.
+6. Click the "Send" button to initiate the request and receive the response.
 
-> Ερμηνεία του Κώδικα: Το σύστημα εξετάζει αν το uuid στο πεδίο Authorization υπάρχει στην admins_session, καλώντας την συνάρτηση is_admin_session_valid(). Αν λάβει θετική απάντηση, ελέγχει αν υπάρχει κάποιο product στην συλλογή Products με το id που έλαβε μέσω Postman. Αν πράγματι το ζητούμενο product υπάρχει στο stock του καταστήματος, τότε ενημερώνεται σύμφωνα με τα data ου εισάγει ο χρήστης και εκτυπώνεται το αντίστοιχο μήνυμα επιτυχίας. Το endpoint13.json μπορεί να περιέχει είτε το νέο id του προϊόντος, είτε το νέο name του, είτε το νέο price του ή ακόμα και το νέο category του (γενικά ενημερώνεται ένα από τα τέσσερα αυτά πεδία του προϊόντος). Σε περίπτωση που το uuid είναι μη έγκυρο ή το id δεν αντιστοιχεί σε κάποιο υπάρχον προϊόν στην συλλογή Products, επιστρέφεται μήνυμα λάθους.
+**Code Explanation:**
+The system first checks if the UUID in the Authorization field exists in the users_session by using the `is_session_valid()` function. If it's valid, it proceeds to find students who are at least 30 years old in the current year. To do this, it calculates their birth year (e.g., 1991 for 2021) and stores it as `yearMinus30`. Then, it searches the Students collection for students in this age group. If any are found, their details are printed using the `student_l2` list. To create this list, the system iterates through each student who is 30 years old or older, stores their information in a dictionary named `student_d3`, and adds it to the `students_l2` list. It's important to note that because the `Students.json` file may contain users with or without address information, the `student_d3` dictionary can take two forms – one with the address field and one without. If the UUID is invalid or the email doesn't belong to a student who is at least 30 years old, it returns an error message.
+
+## 6th Endpoint | Get students who have declared residence based on email
+1. Open Postman and select the GET request method.
+2. Enter the following URL: [http://0.0.0.0:5000/getStudentAddress](http://0.0.0.0:5000/getStudentAddress).
+3. In the Body section, choose "raw" to specify that the input type will be JSON.
+4. Click "Binary" and then "Select File" to upload the endpoint6.json file.
+5. In the Headers section, add a new header named "Authorization."
+6. After successfully logging in as a user, copy the UUID (User Unique Identifier) and paste it into the Authorization field.
+7. Leave the Body field empty.
+8. Click the "Send" button to initiate the request and receive the response.
+
+**Code Explanation:**
+The system first checks if the UUID in the Authorization field exists in the users_session by calling the `is_session_valid()` function. If it gets a positive response, it proceeds to check if there is a user in the Students collection with the email received via Postman. Additionally, it ensures that this user has also provided their address information. If such a user is found, the system returns their name, street, and postal code as per the `student_d4` dictionary.
+
+## 7th Endpoint | Delete student by email
+1. Open Postman and select the DELETE request method.
+2. Enter the following URL: [http://0.0.0.0:5000/deleteStudent](http://0.0.0.0:5000/deleteStudent).
+3. In the Body section, select the "raw" input type and specify JSON.
+4. Click "binary," then "Select File" to upload the endpoint7.json file.
+5. In the Headers section, add a new header named "Authorization."
+6. After successfully logging in as a user, copy your UUID (Unique User Identifier) and paste it into the Authorization field.
+7. Click the "Send" button to execute the request.
+
+**Code Explanation:**
+The system first checks the validity of your UUID in the Authorization field by calling the `is_session_valid()` function. If it's valid, the system proceeds to check if there is a user in the Students collection with the email provided in Postman. If such a user is found, they are completely removed from the Students collection using the `students.delete_one({"email": data["email"]})` command. If the UUID is invalid, the email doesn't correspond to a student, or the email exists in the Students collection but belongs to a student who hasn't provided an address, an error message is returned.
+
+## 8th Endpoint | Add courses to student based on email
+1. Open Postman and select the PATCH request method.
+2. Enter the following URL: [http://0.0.0.0:5000/addCourses](http://0.0.0.0:5000/addCourses).
+3. In the main section (Body), choose the "raw" option to specify that you're uploading a JSON file.
+4. Click on "binary" and select "Select File" to upload the "endpoint8.json" file.
+5. In the Headers section, add a new header named "Authorization."
+6. After successfully logging in as a user, copy the UUID (user unique identifier) and paste it into the Authorization field.
+7. Click the "Send" button to initiate the request and receive the response.
+
+**Code Explanation:**
+The system validates the UUID in the Authorization field by calling the `is_session_valid()` function. If it's valid, the system checks if a user with the provided email exists in the Students collection through Postman. If such a user is found, the system inserts the courses field with the courses received from `json.loads(request.data)`. To print these courses distinctly, they are stored one by one in a list called `courses_l`. This list is then used to update the `student` variable with the command `student.update({"courses": courses_l})` in dictionary format, just like they appear in the JSON file. This allows the system to print the student's information with the current email after inserting it into the `student_d5` dictionary. Since the `Students.json` file contains users with and without address details, the `student_d5` dictionary has two forms – one including the `address` field and one excluding it. If the UUID is invalid or the email doesn't correspond to any student, an error message is returned.
+
+## 9th Endpoint | Get a Student's Previous Courses by Email
+1. Open Postman and choose the GET request method.
+2. Enter this URL: http://0.0.0.0:5000/getPassedCourses.
+3. In the main section (Body), select "raw" to specify that we'll input JSON data.
+4. Click "binary" and choose "Select File" to upload the endpoint9.json file from your system.
+5. In the Headers section, add a new header named "Authorization," then paste your UUID (user unique identifier) into the Authorization field after successfully logging in.
+6. Click "Send" to initiate the request and receive the response.
+
+**Code Explanation:**
+The system first checks if the UUID in the Authorization field exists in the users_session by using the `is_session_valid()` function. If it's valid, the system looks for a user in the Students collection with the email provided via Postman. It checks if this user has completed any courses in the Students collection. If such a user is found, the system extracts the courses in which they were examined and received a passing grade (a grade greater than or possibly equal to 5) and stores them in a dictionary called `passed`. This dictionary is constructed using the `passed.update(course_d)` command, where `course_d` represents each course-grade pair included in the dictionary. Finally, the system prints the student's name and the courses they have passed using a dictionary named `student_d6`. If the UUID is invalid, the email doesn't correspond to any student, or the student hasn't been examined in any course, an error message is returned. Likewise, if the student was examined but failed in all courses, an appropriate informative message is displayed.
+
+## Author
+Natalia Koliou: find me on [LinkedIn](https://www.linkedin.com/in/natalia-koliou-b37b01197/).
