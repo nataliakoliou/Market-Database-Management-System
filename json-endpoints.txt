@@ -1,37 +1,44 @@
-# Endpoint 1 | Indicative JSON file...
+# ENDPOINT-1
 {
     "name":"Eloise Martin",
     "email":"eloise99@ontagene.com",
     "password":"eloiseM"
 }
-# Endpoint 2 | Indicative JSON file...
+
+# ENDPOINT-2
 {
     "email":"eloise99@ontagene.com",
     "password":"eloiseM"
 }
-# Endpoint 3 | Indicative JSON file...
+
+# ENDPOINT-3
 {
     "email":"connerweeks@ontagene.com",
     "password":"connerW"
 }
-# Endpoint 4 | Indicative JSON file...
+
+# ENDPOINT-4
 {
     "category":"Meat & Seafood"
 }
-# Endpoint 5 | Indicative JSON file...
+
+# ENDPOINT-5
 {
     "id":12,
     "stock":2
 }
-# Endpoint 7 | Indicative JSON file...
+
+# ENDPOINT-7
 {
     "id":12
 }
-# Endpoint 8 | Indicative JSON file...
+
+# ENDPOINT-8
 {
     "cardNumber":1940007539405748
 }
-# Endpoint 11 | Indicative JSON file...
+
+# ENDPOINT-11
 {
     "id":19,
     "name":"Organic Bananas",
@@ -40,15 +47,17 @@
     "stock":525,
     "category":"Fruits & Vegetables"
 }
-# Endpoint 12 | Indicative JSON file...
+
+# ENDPOINT-12
 {
     "id":4
 }
-# Endpoint 13 | Indicative JSON file...
+
+# ENDPOINT-13
 {
     "id":1,
     "price":5.25,
     "stock":400
 }
 
-// Endpoints 6 and 9 and 10 need no JSON file to run...
+// ENDPOINTS 6, 9 AND 10 NEED NO JSON FILE TO RUN
