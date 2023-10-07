@@ -39,7 +39,7 @@ The system checks if there are any existing users in the Users collection using 
 5. Once the file is successfully loaded, click "Send" to retrieve the desired response.
 
 **Code Explanation:**
-The system verifies the presence of standard users in the Users collection using the email and password provided in the Postman request's Body. If such a user is found, the create_user_session() function is called to authenticate the user. Subsequently, a dictionary is returned to the user containing the user's unique identifier (UUID) and their email address. In the event that the requested user is not found, an appropriate failure message is returned.
+The system verifies the presence of standard users in the Users collection using the email and password provided in the Postman request's Body. If such a user is found, the `create_user_session()` function is called to authenticate the user. Subsequently, a dictionary is returned to the user containing the user's unique identifier (UUID) and their email address. In the event that the requested user is not found, an appropriate failure message is returned.
 
 ## 3rd Endpoint | Administrator Login
 1. Open Postman and select the POST request method.
@@ -49,48 +49,46 @@ The system verifies the presence of standard users in the Users collection using
 5. Once the file is successfully uploaded, click "Send" to receive the requested response.
 
 **Code Explanation:**
-The system checks if there are administrators in the Users collection with the email and password provided in the Postman Body. If such a user is found, the create_admin_session() function is called to authenticate the user. Consequently, a dictionary is returned to the user, containing keys for the user's unique identifier (UUID) and email. In case the requested user is not found, an appropriate failure message is returned.
+The system checks if there are administrators in the Users collection with the email and password provided in the Postman Body. If such a user is found, the `create_admin_session()` function is called to authenticate the user. Consequently, a dictionary is returned to the user, containing keys for the user's unique identifier (UUID) and email. In case the requested user is not found, an appropriate failure message is returned.
 
-
-
-
-
-
-
-## 4th Endpoint | Get all students who are exactly 30 years old
+## 4th Endpoint | Product Search
 1. Open Postman and select the GET request method.
-2. 2. Enter the following URL: [http://0.0.0.0:5000/getStudents/thirties](http://0.0.0.0:5000/getStudents/thirties).
-5. In the Headers section, add a new header named "Authorization."
-6. After successfully logging in as a user, copy the UUID (user unique identifier) and paste it into the Authorization field.
-4. Leave the Body field empty.
-7. Click the "Send" button to initiate the request and receive the response.
+2. Enter the following URL: [http://0.0.0.0:5000/searchProduct](http://0.0.0.0:5000/searchProduct).
+3. In the request Body, choose the "raw" option to specify that you are importing a JSON file.
+4. Select "binary" and click "Select File" to upload the endpoint4.json file to the system.
+5. In the Headers section, add a new header with the name "Authorization" and click on the square box to the left.
+6. After successfully logging in as a standard user, copy the UUID and paste it into the Authorization field.
+7. Click "Send" to retrieve the requested response.
 
 **Code Explanation:**
-The system checks if your UUID in the Authorization field is valid by calling the `is_session_valid()` function. If it's valid, it looks for students aged 30 in the current year. It calculates their birth year (e.g., 1991 for 2021) and stores it as `yearMinus30`. Then, it checks the Students collection for students in this age group. If any are found, their details are printed using the `student_l1` list. To create this list, it goes through each 30-year-old student, stores their information in a dictionary called `student_d2`, and adds it to the `students_l1` list. It's important to note that because the `Students.json` file may have users with or without address information, the `student_d2` dictionary can have two forms – one with the address field and one without. If the UUID is invalid or the email doesn't belong to a 30-year-old student, it returns an error message.
+The system checks if the UUID in the Authorization field exists in the `users_session` by calling the `is_user_session_valid()` function. If it receives a positive response, it then checks if there is a product in the Products collection with either the ID, name, or category received via Postman (the `endpoint4.json` file may contain either the ID, name, or category for searching a product). If one or more such products are found, their details are returned as a list of dictionaries in `products_l`, each containing a dictionary `product_d`. In case the UUID is invalid or the ID/name/category does not correspond to any product, an error message is returned.
 
-## 5th Endpoint | Get all students who are at least 30 years old
+## 5th Endpoint | Adding items to cart
 1. Open Postman and select the GET request method.
-2. Enter the following URL: [http://0.0.0.0:5000/getStudents/oldies](http://0.0.0.0:5000/getStudents/oldies).
-3. In the Headers section, add a new header named "Authorization."
-4. After successfully logging in as a user, copy your UUID (user unique identifier) and paste it into the Authorization field.
+2. Enter the following URL: [http://0.0.0.0:5000/addToCart](http://0.0.0.0:5000/addToCart).
+3. In the request Body, choose the "raw" option to specify that you are importing a JSON file.
+4. Select "binary" and click "Select File" to upload the endpoint5.json file to the system.
+5. In the Headers section, add a new header with the name "Authorization" and click on the square box to the left.
+6. After successfully logging in as a standard user, copy the UUID and paste it into the Authorization field.
+7. Click "Send" to retrieve the requested response.
+
+**Code Explanation:**
+The system begins by checking if the UUID in the Authorization field exists in the `users_session` by calling the `is_user_session_valid()` function. If it receives a positive response, it proceeds to check if there is a product in the Products collection with the ID received via Postman. Simultaneously, it requires that this product is available in stock in quantities greater than or equal to the quantity specified by the user in the endpoint5.json file. If the requested product is indeed available, it is added to the cart using the product_d dictionary. To calculate the total cost of the items in the cart, two scenarios are considered: whether the cart is empty or whether it already contains at least one product. In the first scenario, the system checks if the desired product is already in the cart to avoid duplicate entries and updates the quantity based on the new order. In the second scenario, the product is simply added to the cart without further action. Finally, the system calculates the totalPrice by multiplying each product in the cart by its corresponding quantity. It then displays the cart details to the user and concludes the endpoint. If the UUID is invalid or the ID/quantity does not correspond to an available product, an error message is returned.
+
+## 6th Endpoint | View cart
+1. Open Postman and select the GET request method.
+2. Enter the following URL: http://0.0.0.0:5000/displayCart.
+3. In the Headers section, add a new header named "Authorization" and click on the square box to the left.
+4. After successfully logging in as a standard user, copy the UUID and paste it into the Authorization field.
 5. Leave the Body field empty.
-6. Click the "Send" button to initiate the request and receive the response.
+6. Click "Send" to retrieve the requested response.
 
 **Code Explanation:**
-The system first checks if the UUID in the Authorization field exists in the users_session by using the `is_session_valid()` function. If it's valid, it proceeds to find students who are at least 30 years old in the current year. To do this, it calculates their birth year (e.g., 1991 for 2021) and stores it as `yearMinus30`. Then, it searches the Students collection for students in this age group. If any are found, their details are printed using the `student_l2` list. To create this list, the system iterates through each student who is 30 years old or older, stores their information in a dictionary named `student_d3`, and adds it to the `students_l2` list. It's important to note that because the `Students.json` file may contain users with or without address information, the `student_d3` dictionary can take two forms – one with the address field and one without. If the UUID is invalid or the email doesn't belong to a student who is at least 30 years old, it returns an error message.
+The system checks if the UUID in the Authorization field exists in the `users_session` by calling the `is_user_session_valid()` function. If it receives a positive response, it checks whether the cart is empty or not. In the case of an empty cart, the corresponding response message is displayed. If there are products in the cart, the total price is calculated as usual, and the cart details (product details and total cost) are displayed. In case the UUID is invalid, an error message is returned.
 
-## 6th Endpoint | Get students who have declared residence based on email
-1. Open Postman and select the GET request method.
-2. Enter the following URL: [http://0.0.0.0:5000/getStudentAddress](http://0.0.0.0:5000/getStudentAddress).
-3. In the Body section, choose "raw" to specify that the input type will be JSON.
-4. Click "Binary" and then "Select File" to upload the endpoint6.json file.
-5. In the Headers section, add a new header named "Authorization."
-6. After successfully logging in as a user, copy the UUID (User Unique Identifier) and paste it into the Authorization field.
-7. Leave the Body field empty.
-8. Click the "Send" button to initiate the request and receive the response.
 
-**Code Explanation:**
-The system first checks if the UUID in the Authorization field exists in the users_session by calling the `is_session_valid()` function. If it gets a positive response, it proceeds to check if there is a user in the Students collection with the email received via Postman. Additionally, it ensures that this user has also provided their address information. If such a user is found, the system returns their name, street, and postal code as per the `student_d4` dictionary.
+
+
 
 ## 7th Endpoint | Delete student by email
 1. Open Postman and select the DELETE request method.
